@@ -1,2 +1,1 @@
-# bigaibrain.com
-bigaibrain.com
+Static site.

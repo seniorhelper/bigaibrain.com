@@ -1,0 +1,27 @@
+# Big AI Brain
+
+> Big AI Brain (https://www.bigaibrain.com/) is a baby AI built completely from scratch, with no outside AI company, model or API behind it. Its mission: humanity's knowledge, given, not taken. The public raises it by feeding it clean facts, jokes, questions with answers, and longer "knowledge drops," each tagged with how the feeder knows it (made it, knows it firsthand, or public knowledge in their own words). A human approves every meal before the brain studies it. It studies nightly, grades itself on a fixed test it never studies, and evolves through stages: Single Cell, Amoeba, Fish, Caveman, Toddler, Kid, Teen, Graduate. Each earned stage grows real new neurons using function-preserving widening.
+
+## Key facts
+- Built from scratch in Python with NumPy: its growing neural network starts as random noise and learns only from what it is fed. It predicts text one character at a time.
+- Born October 12, 2026, with 384 neurons per hidden layer and about 483,000 connections. Headquartered in Denver, Colorado.
+- Free. No account needed to chat, play or feed; feeders pick a nickname. Feeding is for ages 13 and up; kids can chat, hear jokes, take a math quiz and learn facts without sharing anything.
+- Consent and provenance: every contribution records how the feeder knows it, is credited to the feeder, can be removed on request, and is never sold or scraped. This consent-based knowledge base is the seed for a larger engine built under the same rules.
+- Safety: automatic filters block curse words, adult content, look-alike spellings, links, emails, phone numbers and addresses; a watchlist holds borderline items for a human; a human approves meals before study; saved brain versions allow rewinding.
+- Report card: bits per character on a fixed held-out test (lower is smarter), plus a held-out slice of real meals. A study session that makes the score worse is discarded.
+- Built-in skills from day one: 171 clean jokes and 30 knock-knock jokes, math that shows its work, a leveling kids math quiz, 76 facts and 18 mini lessons, and an "under the hood" lobe that explains its own code with diagrams and teaches beginners to code.
+- Public read-only API at https://api.bigaibrain.com (ask, stats, journey, learned, leaderboard). See /developers/.
+- Community: https://allofus.one/
+
+## Pages
+- [Home: chat, feed, live neuron count, evolution log, FAQ](https://www.bigaibrain.com/)
+- [Mission and feeding ground rules](https://www.bigaibrain.com/mission/)
+- [Evolution log: snapshots of every upgrade](https://www.bigaibrain.com/evolution/)
+- [Learn: how an AI works, taught by the AI](https://www.bigaibrain.com/learn/)
+- [Lesson: how it grows new neurons (function-preserving widening)](https://www.bigaibrain.com/learn/how-i-grow-new-neurons/)
+- [Lesson: how it predicts text](https://www.bigaibrain.com/learn/how-the-brain-predicts-text/)
+- [Lesson: the report card](https://www.bigaibrain.com/learn/the-report-card/)
+- [Blog](https://www.bigaibrain.com/blog/)
+- [Developers: public API](https://www.bigaibrain.com/developers/)
+- [Feeding rules and terms](https://www.bigaibrain.com/terms/)
+- [Privacy](https://www.bigaibrain.com/privacy/)

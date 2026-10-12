@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brain Checker | Big AI Brain</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+body{background:#f6f2ff}
+.adm{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+.adm h1{font-size:34px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row input{font:16px system-ui;border:3px solid var(--line);border-radius:10px;padding:10px;min-width:0;flex:1}
+.atabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0}
+.atabs button{font:800 16px var(--display);border:3px solid var(--line);background:#fff;border-radius:10px;padding:10px 14px;cursor:pointer}
+.atabs button.on{background:var(--yellow)}
+.item{background:#fff;border:3px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.item.flag{border-color:#c42b48;box-shadow:0 0 0 3px #ffd5dc}
+.item .meta{font-size:13px;color:#5b5270;margin-bottom:6px}
+.item .kind{display:inline-block;font:700 11px system-ui;text-transform:uppercase;background:#f3ecff;border:1.5px solid var(--line);border-radius:6px;padding:3px 6px;margin-right:6px}
+.item .q{font-weight:700}
+.item .a{white-space:pre-line;margin:4px 0 10px;max-height:320px;overflow:auto}
+.item .btns{display:flex;gap:8px;flex-wrap:wrap}
+.item .btns button,.small{font:700 14px system-ui;border:2px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer;background:#fff}
+.ok{background:#bff3d4 !important}.no{background:#ffd5dc !important}
+table{width:100%;border-collapse:collapse;background:#fff;border:3px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
+.note{padding:10px 12px;background:#fff6cf;border:2px dashed #c48a00;border-radius:10px;margin:10px 0}
+#msg{font-weight:700;min-height:22px}
+.check{width:20px;height:20px;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="adm">
+  <h1>🧑‍🔬 Brain Checker</h1>
+  <p class="muted">Approve what the brain is allowed to eat. Nothing here is public. Keep your admin token secret.</p>
+  <form class="row" id="login">
+    <input id="api" placeholder="Brain server address, e.g. https://api.bigaibrain.com" aria-label="Brain server address">
+    <input id="tok" type="password" placeholder="Admin token" aria-label="Admin token" autocomplete="current-password">
+    <button class="btn btn-teal" type="submit">Unlock</button>
+  </form>
+  <p id="msg" role="status"></p>
+  <div id="app" hidden>
+    <div class="atabs" role="tablist">
+      <button type="button" data-t="pending" class="on">🍽️ Waiting</button>
+      <button type="button" data-t="approved">✅ Approved</button>
+      <button type="button" data-t="auto_rejected">🤖 Auto-blocked</button>
+      <button type="button" data-t="rejected">❌ Rejected</button>
+      <button type="button" data-t="versions">🧠 Brain versions</button>
+      <button type="button" data-t="feeders">👥 Feeders</button>
+      <button type="button" data-t="journey">📖 Journey note</button>
+    </div>
+    <div id="view"></div>
+  </div>
+</div>
+<script>
+(function(){
+  "use strict";
+  var $=function(s){return document.querySelector(s)}, API="", TOK="";
+  function ss(k,v){try{if(v===undefined)return sessionStorage.getItem(k);sessionStorage.setItem(k,v)}catch(e){return null}}
+  $("#api").value = ss("bab_api") || (location.protocol.indexOf("http")===0 && location.hostname!=="www.bigaibrain.com" && location.hostname!=="bigaibrain.com" ? location.origin : "https://api.bigaibrain.com");
+  $("#tok").value = ss("bab_tok") || "";
+  function msg(t,bad){$("#msg").textContent=t;$("#msg").style.color=bad?"#c42b48":"#13875a"}
+  function call(path,body){
+    return fetch(API+path,{method:body?"POST":"GET",headers:{"Content-Type":"application/json","X-Admin-Token":TOK},body:body?JSON.stringify(body):undefined})
+      .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||("error "+r.status));return j})});
+  }
+  function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+  function when(t){return t?new Date(t*1000).toLocaleString():""}
+  var tab="pending";
+  function show(t){tab=t;document.querySelectorAll(".atabs button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-t")===t)});render()}
+  document.querySelectorAll(".atabs button").forEach(function(b){b.addEventListener("click",function(){show(b.getAttribute("data-t"))})});
+  function review(ids,action){return call("/api/admin/review",{ids:ids,action:action}).then(function(r){msg((action==="approve"?"Approved ":"Rejected ")+r.changed+" item(s).");render()}).catch(function(e){msg(e.message,true)})}
+  function render(){
+    var v=$("#view"); v.innerHTML="";
+    if(["pending","approved","auto_rejected","rejected"].indexOf(tab)>=0){
+      call("/api/admin/queue?status="+tab).then(function(r){
+        if(!r.items.length){v.appendChild(el("p","note",tab==="pending"?"Stomach is empty. Nothing waiting! 🎉":"Nothing here yet."));return}
+        if(tab==="pending"){
+          var bar=el("div","row"); var all=el("button","small","Select all"), ap=el("button","small ok","Approve selected"), rj=el("button","small no","Reject selected");
+          all.onclick=function(){v.querySelectorAll(".check").forEach(function(c){c.checked=true})};
+          ap.onclick=function(){var ids=[].map.call(v.querySelectorAll(".check:checked"),function(c){return +c.value});if(ids.length)review(ids,"approve")};
+          rj.onclick=function(){var ids=[].map.call(v.querySelectorAll(".check:checked"),function(c){return +c.value});if(ids.length)review(ids,"reject")};
+          bar.appendChild(all);bar.appendChild(ap);bar.appendChild(rj);bar.style.marginBottom="12px";v.appendChild(bar);
+          v.appendChild(el("p","note","Red-outlined items hit a watchlist word or got thumbs-downs. Read those carefully. Ask: is it true, clean, kind, and free of personal info?"));
+        }
+        r.items.forEach(function(it){
+          var d=el("div","item"+(it.review?" flag":""));
+          var meta=el("div","meta"); meta.appendChild(el("span","kind",it.kind));
+          if(it.source)meta.appendChild(el("span","kind",{mine:"made it",firsthand:"firsthand",public:"public"}[it.source]||it.source));
+          meta.appendChild(document.createTextNode("#"+it.id+" · by "+(it.nickname||"?")+" ("+it.fa+" approved / "+it.fr+" rejected"+(it.fb?" · BANNED":"")+") · "+when(it.created)+(it.reason?" · "+it.reason:"")+(it.likes||it.dislikes?" · 👍"+it.likes+" 👎"+it.dislikes:"")));
+          d.appendChild(meta);
+          if(it.prompt)d.appendChild(el("div","q",it.prompt));
+          d.appendChild(el("div","a",it.answer));
+          var b=el("div","btns");
+          if(tab==="pending"){var c=el("input","check");c.type="checkbox";c.value=it.id;c.setAttribute("aria-label","Select item "+it.id);b.appendChild(c)}
+          if(tab!=="approved"){var a=el("button","ok","Approve");a.onclick=function(){review([it.id],"approve")};b.appendChild(a)}
+          if(tab!=="rejected"){var x=el("button","no",tab==="approved"?"Remove from brain":"Reject");x.onclick=function(){review([it.id],"reject")};b.appendChild(x)}
+          if(!it.fb){var ban=el("button","no","Ban feeder");ban.onclick=function(){if(confirm("Ban "+(it.nickname||"this feeder")+" and reject their waiting items?"))call("/api/admin/ban",{feeder_id:it.feeder_id,banned:true}).then(function(){msg("Feeder banned.");render()})};b.appendChild(ban)}
+          d.appendChild(b); v.appendChild(d);
+        });
+      }).catch(function(e){msg(e.message,true)});
+    } else if(tab==="versions"){
+      call("/api/admin/versions").then(function(r){
+        var bar=el("div","row"); var steps=el("input"); steps.placeholder="Steps (blank = default)"; steps.style.maxWidth="220px";
+        var go=el("button","btn btn-pink","Start a study session now");
+        go.onclick=function(){call("/api/admin/train",steps.value?{steps:+steps.value}:{}).then(function(x){msg(x.message);setTimeout(render,1500)}).catch(function(e){msg(e.message,true)})};
+        bar.appendChild(steps);bar.appendChild(go);v.appendChild(bar);
+        var t=r.training||{}; v.appendChild(el("p","note",(t.running?"⏳ A study session is running right now. ":"")+(t.last?("Last session: "+JSON.stringify(t.last)):"The nightly study session runs automatically. If a session makes the brain score worse, the old brain stays active.")));
+        var tb=el("table"); var hd=el("tr"); ["Version","When","Report card (lower = smarter)","Stage","Note",""].forEach(function(h){hd.appendChild(el("th",null,h))}); tb.appendChild(hd);
+        r.versions.forEach(function(x){var tr=el("tr");[ "v"+x.version+(x.active?" ✅ active":""), when(x.created), x.bpc!=null?x.bpc.toFixed(3):"", x.stage, x.note||"" ].forEach(function(c){tr.appendChild(el("td",null,c))});
+          var td=el("td"); if(!x.active){var rb=el("button","small","Rewind to this");rb.onclick=function(){if(confirm("Make v"+x.version+" the active brain?"))call("/api/admin/rollback",{version:x.version}).then(function(){msg("Rewound to v"+x.version+".");render()}).catch(function(e){msg(e.message,true)})};td.appendChild(rb)} tr.appendChild(td); tb.appendChild(tr)});
+        v.appendChild(tb);
+      }).catch(function(e){msg(e.message,true)});
+    } else if(tab==="feeders"){
+      call("/api/admin/feeders").then(function(r){
+        var tb=el("table"); var hd=el("tr"); ["Nickname","Approved","Rejected","Last seen",""].forEach(function(h){hd.appendChild(el("th",null,h))}); tb.appendChild(hd);
+        r.feeders.forEach(function(f){var tr=el("tr");[f.nickname||"?",f.approved,f.rejected,when(f.last_seen)].forEach(function(c){tr.appendChild(el("td",null,c))});
+          var td=el("td"); var bb=el("button","small "+(f.banned?"ok":"no"),f.banned?"Unban":"Ban"); bb.onclick=function(){call("/api/admin/ban",{feeder_id:f.id,banned:!f.banned}).then(function(){render()})}; td.appendChild(bb); tr.appendChild(td); tb.appendChild(tr)});
+        v.appendChild(tb);
+      }).catch(function(e){msg(e.message,true)});
+    } else if(tab==="journey"){
+      var f=el("form","item"); var ti=el("input"); ti.placeholder="Milestone title, e.g. The brain told its first joke at a party"; ti.style.cssText="width:100%;font:16px system-ui;border:3px solid #2b2340;border-radius:10px;padding:10px;margin-bottom:8px";
+      var bo=el("textarea"); bo.placeholder="Short story (optional)"; bo.rows=3; bo.style.cssText=ti.style.cssText;
+      var sb=el("button","btn btn-pink","Add to the baby book"); sb.type="submit";
+      f.appendChild(ti);f.appendChild(bo);f.appendChild(sb);
+      f.onsubmit=function(e){e.preventDefault();call("/api/admin/journey",{title:ti.value,body:bo.value}).then(function(){msg("Added to the journey!");ti.value="";bo.value=""}).catch(function(er){msg(er.message,true)})};
+      v.appendChild(f);
+    }
+  }
+  $("#login").addEventListener("submit",function(e){
+    e.preventDefault(); API=$("#api").value.trim().replace(/\/+$/,""); TOK=$("#tok").value.trim();
+    call("/api/admin/queue?status=pending").then(function(){ss("bab_api",API);ss("bab_tok",TOK);msg("Unlocked. 🔓");$("#app").hidden=false;render()})
+      .catch(function(er){msg("Couldn't unlock: "+er.message,true)});
+  });
+})();
+</script>
+</body>
+</html>

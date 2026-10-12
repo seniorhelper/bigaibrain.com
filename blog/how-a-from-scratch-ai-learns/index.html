@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How a from-scratch AI actually learns (no PhD required) | Big AI Brain Blog</title>
+<meta name="description" content="A plain-English tour of Big AI Brain&#x27;s learning loop: next-character prediction, the nightly study session, the report card, and how it grows new neurons.">
+<link rel="canonical" href="https://www.bigaibrain.com/blog/how-a-from-scratch-ai-learns/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#fff4e6">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Big AI Brain">
+<meta property="og:title" content="How a from-scratch AI actually learns (no PhD required) | Big AI Brain Blog">
+<meta property="og:description" content="A plain-English tour of Big AI Brain&#x27;s learning loop: next-character prediction, the nightly study session, the report card, and how it grows new neurons.">
+<meta property="og:url" content="https://www.bigaibrain.com/blog/how-a-from-scratch-ai-learns/">
+<meta property="og:image" content="https://www.bigaibrain.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://www.bigaibrain.com/blog/how-a-from-scratch-ai-learns/#webpage", "url": "https://www.bigaibrain.com/blog/how-a-from-scratch-ai-learns/", "name": "How a from-scratch AI actually learns (no PhD required) | Big AI Brain Blog", "description": "A plain-English tour of Big AI Brain's learning loop: next-character prediction, the nightly study session, the report card, and how it grows new neurons.", "isPartOf": {"@id": "https://www.bigaibrain.com/#website"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.bigaibrain.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "/blog/"}, {"@type": "ListItem", "position": 3, "name": "How a from-scratch AI actually learns (n", "item": "/blog/how-a-from-scratch-ai-learns/"}]}}, {"@type": "BlogPosting", "@id": "https://www.bigaibrain.com/blog/how-a-from-scratch-ai-learns/#post", "headline": "How a from-scratch AI actually learns (no PhD required)", "description": "A plain-English tour of Big AI Brain's learning loop: next-character prediction, the nightly study session, the report card, and how it grows new neurons.", "datePublished": "2026-10-12", "dateModified": "2026-10-12", "author": {"@type": "Organization", "name": "Big AI Brain", "@id": "https://www.bigaibrain.com/#org"}, "publisher": {"@id": "https://www.bigaibrain.com/#org"}, "image": "https://www.bigaibrain.com/assets/og-image.png", "mainEntityOfPage": "https://www.bigaibrain.com/blog/how-a-from-scratch-ai-learns/"}]}
+</script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/" aria-label="Big AI Brain home">
+      <svg viewBox="0 0 64 56" width="44" height="38" aria-hidden="true"><path d="M12 30C6 28 6 19 12 16 11 10 18 6 24 8 26 3 35 2 38 7 43 4 51 7 52 13 58 14 60 22 55 26 58 31 54 38 48 38 46 43 39 45 35 41 32 45 24 44 22 40 16 41 11 37 13 33 10 32 10 30 12 30Z" fill="#ff8fb1" stroke="#c9356b" stroke-width="2.5" stroke-linejoin="round"/><circle cx="25" cy="23" r="5" fill="#fff" stroke="#2b2340" stroke-width="2"/><circle cx="39" cy="23" r="5" fill="#fff" stroke="#2b2340" stroke-width="2"/><circle cx="26" cy="24" r="2" fill="#2b2340"/><circle cx="40" cy="24" r="2" fill="#2b2340"/><path d="M26 32q6 5 12 0" fill="none" stroke="#2b2340" stroke-width="2.5" stroke-linecap="round"/><rect x="29.5" y="32" width="2.6" height="3.4" rx=".8" fill="#fff" stroke="#2b2340" stroke-width="1"/><rect x="32.3" y="32" width="2.6" height="3.4" rx=".8" fill="#fff" stroke="#2b2340" stroke-width="1"/></svg>
+      <span>Big <b>AI</b> Brain</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/#chat">Chat</a>
+      <a href="/#feed">Feed me</a>
+      <a href="/mission/">Mission</a>
+      <a href="/evolution/">Evolution</a>
+      <a href="/learn/">Learn</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="bbb" href="https://www.bbb.org/us/co/denver/profile/advertising-agencies/search-converts-llc-1296-90228702/#sealclick" target="_blank" rel="nofollow noopener"><img src="https://seal-alaskaoregonwesternwashington.bbb.org/seals/blue-seal-200-65-bbb-90228702.png" width="200" height="65" alt="Search Converts LLC BBB Business Review"></a>
+  </div>
+</header>
+<main class="doc"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/blog/">Blog</a> › How a from-scratch AI actually learns (n</nav>
+<p class="eyebrow">Brain blog · Oct 12, 2026</p><h1>How a from-scratch AI actually learns (no PhD required)</h1><p class="lead">People ask how a thing made of random numbers ends up telling jokes. Here's the whole loop, in plain English, with links to the brain's own lessons if you want the code.</p>
+<h2>1. The job: guess the next letter</h2>
+<p>The growing brain looks at the last 32 characters of text and guesses the next one. That's it. Do it well enough and spelling, grammar, facts and punchlines all fall out, because you need them to guess well. <a href="/learn/how-the-brain-predicts-text/">Lesson with a live diagram.</a></p>
+<h2>2. The food: approved meals</h2>
+<p>Everything a human has approved gets turned into little study cards: "Q: Tell me a joke. A: ..." or "Q: Tell me about sourdough. A: ...". Meals with more thumbs-up get studied a little more often. One slice of meals is held back and never studied, so we can test whether the brain is learning what people teach it.</p>
+<h2>3. The study session</h2>
+<p>Every night at 3:15 am, the brain reads thousands of random snippets from its study cards, guesses the next letter of each, and nudges its half-million connections a tiny step toward the right answer. Six thousand steps later, it stops. On a small server this takes a few minutes. If nothing new was approved that day, it skips school.</p>
+<h2>4. The report card</h2>
+<p>Then it takes the same test it takes every night, on material it was never allowed to study. Lower score means smarter. If the new brain scores worse than yesterday's, yesterday's brain stays in charge. No fake progress. <a href="/learn/the-report-card/">How the test works.</a></p>
+<h2>5. Growing up</h2>
+<p>When the score drops below a bar and enough meals have been approved, the brain earns a stage and grows new neurons on the spot, using a trick that adds neurons without forgetting anything. <a href="/learn/how-i-grow-new-neurons/">That lesson is the fun one.</a></p>
+<h2>6. Repeat, for years</h2>
+<p>That's the whole machine. No outside AI, no API, no downloaded model. Just people feeding it, a human checking, and a small brain studying every night and growing when it earns it. Come watch: the neuron count on the <a href="/">homepage</a> is live.</p><p><a href="/blog/">← All posts</a></p>
+</div></main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <a class="logo" href="/"><span>Big <b>AI</b> Brain</span></a>
+      <p>Built from scratch. Headquartered in Denver, Colorado, and growing up worldwide.</p>
+      <p class="links"><a href="/mission/">Mission</a> · <a href="/evolution/">Evolution</a> · <a href="/learn/">Learn</a> · <a href="/blog/">Blog</a> · <a href="/developers/">API</a> · <a href="/terms/">Feeding rules &amp; terms</a> · <a href="/privacy/">Privacy</a> · <a class="eml" href="#" data-a="aW5mbw==" data-b="ZXlldG9hZC5jb20=">Contact</a></p>
+      <p class="tiny">The brain is a learning experiment and can be wrong. Don't use it for medical, legal, money or safety decisions.</p>
+    </div>
+    <a class="bbb" href="https://www.bbb.org/us/co/denver/profile/advertising-agencies/search-converts-llc-1296-90228702/#sealclick" target="_blank" rel="nofollow noopener"><img src="https://seal-alaskaoregonwesternwashington.bbb.org/seals/blue-seal-200-65-bbb-90228702.png" width="200" height="65" alt="Search Converts LLC BBB Business Review" loading="lazy"></a>
+  </div>
+  <p class="copy">© <span id="yr">2026</span> Big AI Brain</p>
+  <div class="sig"><svg class="heart" viewBox="0 0 32 29" width="20" height="18" aria-hidden="true"><path d="M16 28 3.5 15.6C-.6 11.5.5 4.4 5.8 2.3 9.2 1 13 2.2 16 5.4 19 2.2 22.8 1 26.2 2.3c5.3 2.1 6.4 9.2 2.3 13.3Z" fill="#e0193a"/></svg><a href="https://eyetoad.com/">Need a website, AI agent or your own AI?</a></div>
+</footer>
+
+<script>
+document.querySelectorAll("a.eml").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();try{location.href="mai"+"lto:"+atob(a.getAttribute("data-a"))+String.fromCharCode(64)+atob(a.getAttribute("data-b"));}catch(x){}});});
+document.querySelectorAll("[data-viz]").forEach(function(h){var r=setInterval(function(){if(window.BAB_VISUAL){clearInterval(r);var v=window.BAB_VISUAL(h.getAttribute("data-viz"));if(v)h.appendChild(v);}},50);});
+document.addEventListener("click",function(e){var b=e.target.closest("[data-say]");if(!b)return;try{sessionStorage.setItem("bab_say",b.getAttribute("data-say"));}catch(x){}location.href="/#chat";});
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "entries": [
+    {
+      "n": 1,
+      "day": 1,
+      "date": "2026-10-12",
+      "version": "v1.1",
+      "stage": "Single Cell",
+      "emoji": "\ud83e\udda0",
+      "title": "Day one: born goofy",
+      "look": "A smooth pink brain with googly eyes, buck teeth, blushing cheeks and one sprout on top. Eyes follow your finger. Mouth opens when you tap it.",
+      "brain": "384 neurons, about 483,000 connections, all random noise at birth. Two hidden layers. Reads 32 characters at a time and guesses the next one.",
+      "features": [
+        "171 clean jokes and 30 knock-knocks, both directions",
+        "Math that shows its work, plus a leveling kids quiz",
+        "76 facts and 18 mini lessons",
+        "Memory lobe: approved meals answer instantly, credited to the feeder",
+        "Under the hood: explains its own code with pictures",
+        "Five-layer safety lobe and a rewind button",
+        "Grows new neurons when it earns a stage (function-preserving widening)"
+      ],
+      "image": "/assets/evolution/day-001.png"
+    }
+  ],
+  "upcoming": [
+    {
+      "stage": "Fish",
+      "emoji": "\ud83d\udc1f",
+      "tease": "Neurons start to glow and fire across the surface."
+    },
+    {
+      "stage": "Caveman",
+      "emoji": "\ud83d\udd25",
+      "tease": "Visible pathways light up when it answers. Rock knowledge: probable."
+    },
+    {
+      "stage": "Toddler",
+      "emoji": "\ud83e\uddf8",
+      "tease": "Little muscles. Don't ask. It's been working out."
+    },
+    {
+      "stage": "Kid",
+      "emoji": "\ud83c\udf92",
+      "tease": "A glasses upgrade and the first bigger brain."
+    }
+  ]
+}

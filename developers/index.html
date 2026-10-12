@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Public API | Big AI Brain</title>
+<meta name="description" content="Free, read-only API for Big AI Brain: ask the brain a question, read its stage and neuron count, its journey, and recently learned facts. Plus an embed snippet.">
+<link rel="canonical" href="https://www.bigaibrain.com/developers/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#fff4e6">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Big AI Brain">
+<meta property="og:title" content="Public API | Big AI Brain">
+<meta property="og:description" content="Free, read-only API for Big AI Brain: ask the brain a question, read its stage and neuron count, its journey, and recently learned facts. Plus an embed snippet.">
+<meta property="og:url" content="https://www.bigaibrain.com/developers/">
+<meta property="og:image" content="https://www.bigaibrain.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://www.bigaibrain.com/developers/#webpage", "url": "https://www.bigaibrain.com/developers/", "name": "Public API | Big AI Brain", "description": "Free, read-only API for Big AI Brain: ask the brain a question, read its stage and neuron count, its journey, and recently learned facts. Plus an embed snippet.", "isPartOf": {"@id": "https://www.bigaibrain.com/#website"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.bigaibrain.com/"}, {"@type": "ListItem", "position": 2, "name": "Developers", "item": "/developers/"}]}}]}
+</script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="/" aria-label="Big AI Brain home">
+      <svg viewBox="0 0 64 56" width="44" height="38" aria-hidden="true"><path d="M12 30C6 28 6 19 12 16 11 10 18 6 24 8 26 3 35 2 38 7 43 4 51 7 52 13 58 14 60 22 55 26 58 31 54 38 48 38 46 43 39 45 35 41 32 45 24 44 22 40 16 41 11 37 13 33 10 32 10 30 12 30Z" fill="#ff8fb1" stroke="#c9356b" stroke-width="2.5" stroke-linejoin="round"/><circle cx="25" cy="23" r="5" fill="#fff" stroke="#2b2340" stroke-width="2"/><circle cx="39" cy="23" r="5" fill="#fff" stroke="#2b2340" stroke-width="2"/><circle cx="26" cy="24" r="2" fill="#2b2340"/><circle cx="40" cy="24" r="2" fill="#2b2340"/><path d="M26 32q6 5 12 0" fill="none" stroke="#2b2340" stroke-width="2.5" stroke-linecap="round"/><rect x="29.5" y="32" width="2.6" height="3.4" rx=".8" fill="#fff" stroke="#2b2340" stroke-width="1"/><rect x="32.3" y="32" width="2.6" height="3.4" rx=".8" fill="#fff" stroke="#2b2340" stroke-width="1"/></svg>
+      <span>Big <b>AI</b> Brain</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="/#chat">Chat</a>
+      <a href="/#feed">Feed me</a>
+      <a href="/mission/">Mission</a>
+      <a href="/evolution/">Evolution</a>
+      <a href="/learn/">Learn</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="bbb" href="https://www.bbb.org/us/co/denver/profile/advertising-agencies/search-converts-llc-1296-90228702/#sealclick" target="_blank" rel="nofollow noopener"><img src="https://seal-alaskaoregonwesternwashington.bbb.org/seals/blue-seal-200-65-bbb-90228702.png" width="200" height="65" alt="Search Converts LLC BBB Business Review"></a>
+  </div>
+</header>
+<main class="doc"><div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › Developers</nav>
+<p class="eyebrow">For developers and AI agents</p>
+<h1>The Big AI Brain public API</h1>
+<p class="lead">Read-only, free, no key needed. Ask the brain a question, check its stage, or read its journey. Please be gentle: 30 requests a minute per address.</p>
+<h2>Base URL</h2>
+<pre>https://api.bigaibrain.com</pre>
+<h2>Endpoints</h2>
+<h3>GET /api/ask?q=...</h3>
+<p>Ask the brain anything. Returns the answer, which lobe answered, and the brain's current stage.</p>
+<pre class="api-ex">GET https://api.bigaibrain.com/api/ask?q=what+is+12+x+7
+
+{"question": "what is 12 x 7", "answer": "🧮 12 × 7 = 84.", "lobe": "math", "stage": "Amoeba",
+ "note": "Big AI Brain is a learning experiment and can be wrong."}</pre>
+<h3>GET /api/stats</h3>
+<p>Current stage, report card score, neuron count, connection count, meals eaten, and the most recent approved meals.</p>
+<h3>GET /api/journey</h3>
+<p>The baby book: every milestone, stage change and nightly diary entry.</p>
+<h3>GET /api/learned</h3>
+<p>The 30 most recently approved meals, with the feeder's nickname and how they said they know it (<code>mine</code>, <code>firsthand</code> or <code>public</code>).</p>
+<h3>GET /api/leaderboard</h3>
+<p>Top feeders by approved meals, with how many times the brain has used their contributions.</p>
+<h2>Embed the brain</h2>
+<p>Want a "Ask Big AI Brain" box on your site? Drop this in. It opens the brain in a new tab with the question pre-filled.</p>
+<pre>&lt;form action="https://www.bigaibrain.com/" method="get" target="_blank"&gt;
+  &lt;input name="ask" placeholder="Ask Big AI Brain..." maxlength="300"&gt;
+  &lt;button&gt;Ask&lt;/button&gt;
+&lt;/form&gt;</pre>
+<h2>Rules</h2>
+<ul>
+<li>The brain is a learning experiment and can be wrong. Don't use its answers for medical, legal, financial or safety decisions.</li>
+<li>Answers may include the nickname of the feeder who taught the brain a fact. Show that credit if you display answers.</li>
+<li>Feeding (POST) is only available through bigaibrain.com, so every meal passes the same checks.</li>
+<li>Machine-readable summary of the whole project: <a href="/llms.txt">/llms.txt</a>.</li>
+</ul>
+</div></main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <a class="logo" href="/"><span>Big <b>AI</b> Brain</span></a>
+      <p>Built from scratch. Headquartered in Denver, Colorado, and growing up worldwide.</p>
+      <p class="links"><a href="/mission/">Mission</a> · <a href="/evolution/">Evolution</a> · <a href="/learn/">Learn</a> · <a href="/blog/">Blog</a> · <a href="/developers/">API</a> · <a href="/terms/">Feeding rules &amp; terms</a> · <a href="/privacy/">Privacy</a> · <a class="eml" href="#" data-a="aW5mbw==" data-b="ZXlldG9hZC5jb20=">Contact</a></p>
+      <p class="tiny">The brain is a learning experiment and can be wrong. Don't use it for medical, legal, money or safety decisions.</p>
+    </div>
+    <a class="bbb" href="https://www.bbb.org/us/co/denver/profile/advertising-agencies/search-converts-llc-1296-90228702/#sealclick" target="_blank" rel="nofollow noopener"><img src="https://seal-alaskaoregonwesternwashington.bbb.org/seals/blue-seal-200-65-bbb-90228702.png" width="200" height="65" alt="Search Converts LLC BBB Business Review" loading="lazy"></a>
+  </div>
+  <p class="copy">© <span id="yr">2026</span> Big AI Brain</p>
+  <div class="sig"><svg class="heart" viewBox="0 0 32 29" width="20" height="18" aria-hidden="true"><path d="M16 28 3.5 15.6C-.6 11.5.5 4.4 5.8 2.3 9.2 1 13 2.2 16 5.4 19 2.2 22.8 1 26.2 2.3c5.3 2.1 6.4 9.2 2.3 13.3Z" fill="#e0193a"/></svg><a href="https://eyetoad.com/">Need a website, AI agent or your own AI?</a></div>
+</footer>
+
+<script>
+document.querySelectorAll("a.eml").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();try{location.href="mai"+"lto:"+atob(a.getAttribute("data-a"))+String.fromCharCode(64)+atob(a.getAttribute("data-b"));}catch(x){}});});
+document.querySelectorAll("[data-viz]").forEach(function(h){var r=setInterval(function(){if(window.BAB_VISUAL){clearInterval(r);var v=window.BAB_VISUAL(h.getAttribute("data-viz"));if(v)h.appendChild(v);}},50);});
+document.addEventListener("click",function(e){var b=e.target.closest("[data-say]");if(!b)return;try{sessionStorage.setItem("bab_say",b.getAttribute("data-say"));}catch(x){}location.href="/#chat";});
+</script>
+</body>
+</html>
