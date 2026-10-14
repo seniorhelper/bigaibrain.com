@@ -6,7 +6,7 @@
       "date": "2026-10-12",
       "version": "v1.1",
       "stage": "Single Cell",
-      "emoji": "\ud83e\udda0",
+      "emoji": "🦠",
       "title": "Day one: born goofy",
       "look": "A smooth pink brain with googly eyes, buck teeth, blushing cheeks and one sprout on top. Eyes follow your finger. Mouth opens when you tap it.",
       "brain": "384 neurons, about 483,000 connections, all random noise at birth. Two hidden layers. Reads 32 characters at a time and guesses the next one.",
@@ -20,27 +20,46 @@
         "Grows new neurons when it earns a stage (function-preserving widening)"
       ],
       "image": "/assets/evolution/day-001.png"
+    },
+    {
+      "n": 2,
+      "day": 3,
+      "date": "2026-10-14",
+      "version": "v1.3",
+      "stage": "Amoeba",
+      "emoji": "🫧",
+      "title": "Day three: spinach, chlorella and a library card",
+      "look": "Little muscles, two more sprouts, and a stretch when it grows. New things to say when you tap it.",
+      "brain": "584 neurons (was 480), growing 8 per meal from a person, ceiling 4,096. A Library lobe of openly licensed knowledge, credited by source. Nightly backups and a failure alarm.",
+      "features": [
+        "Grows neurons the moment a meal is approved",
+        "Library lobe: Simple Wikipedia summaries and filtered human Q&A (CC BY-SA)",
+        "Knowledge drops up to 4,000 characters, 10 a day",
+        "No feeder over a quarter of a night's study",
+        "Nightly backups and a failure alarm"
+      ],
+      "image": ""
     }
   ],
   "upcoming": [
     {
       "stage": "Fish",
-      "emoji": "\ud83d\udc1f",
+      "emoji": "🐟",
       "tease": "Neurons start to glow and fire across the surface."
     },
     {
       "stage": "Caveman",
-      "emoji": "\ud83d\udd25",
+      "emoji": "🔥",
       "tease": "Visible pathways light up when it answers. Rock knowledge: probable."
     },
     {
       "stage": "Toddler",
-      "emoji": "\ud83e\uddf8",
+      "emoji": "🧸",
       "tease": "Little muscles. Don't ask. It's been working out."
     },
     {
       "stage": "Kid",
-      "emoji": "\ud83c\udf92",
+      "emoji": "🎒",
       "tease": "A glasses upgrade and the first bigger brain."
     }
   ]

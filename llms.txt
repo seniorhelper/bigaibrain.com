@@ -4,7 +4,9 @@
 
 ## Key facts
 - Built from scratch in Python with NumPy: its growing neural network starts as random noise and learns only from what it is fed. It predicts text one character at a time.
-- Born October 12, 2026, with 384 neurons per hidden layer and about 483,000 connections. Headquartered in Denver, Colorado.
+- Born October 12, 2026, with 384 neurons per hidden layer and about 483,000 connections. Headquartered in Denver, Colorado. Since October 14, 2026 every approved meal from a person grows 8 neurons immediately (ceiling 4,096 per layer, about 20 million connections); the live count is on the homepage.
+- Library lobe (since October 14, 2026): openly licensed public knowledge imported in batches and credited by source (Simple English Wikipedia summaries, CC BY-SA 4.0; filtered databricks-dolly-15k Q&A, CC BY-SA 3.0). Library cards pass the same filters as meals, count less than meals from people, and can be removed. Educators and universities can donate knowledge sets. See /library/.
+- Safeguards (since October 14, 2026): nightly backups, an alert email if a study session fails, and no single feeder over a quarter of a night of study material.
 - Free. No account needed to chat, play or feed; feeders pick a nickname. Feeding is for ages 13 and up; kids can chat, hear jokes, take a math quiz and learn facts without sharing anything.
 - Consent and provenance: every contribution records how the feeder knows it, is credited to the feeder, can be removed on request, and is never sold or scraped. This consent-based knowledge base is the seed for a larger engine built under the same rules.
 - Safety: automatic filters block curse words, adult content, look-alike spellings, links, emails, phone numbers and addresses; a watchlist holds borderline items for a human; a human approves meals before study; saved brain versions allow rewinding.
@@ -17,6 +19,7 @@
 - [Home: chat, feed, live neuron count, evolution log, FAQ](https://www.bigaibrain.com/)
 - [Mission and feeding ground rules](https://www.bigaibrain.com/mission/)
 - [Evolution log: snapshots of every upgrade](https://www.bigaibrain.com/evolution/)
+- [Library lobe: openly licensed knowledge, credited by source; how educators can donate](https://www.bigaibrain.com/library/)
 - [Learn: how an AI works, taught by the AI](https://www.bigaibrain.com/learn/)
 - [Lesson: how it grows new neurons (function-preserving widening)](https://www.bigaibrain.com/learn/how-i-grow-new-neurons/)
 - [Lesson: how it predicts text](https://www.bigaibrain.com/learn/how-the-brain-predicts-text/)
