@@ -96,7 +96,7 @@
     }, 1800 + Math.random() * 2200);
   })();
   var taps = 0, tapTimer = null;
-  var TAP_LINES = ["AHHH! 😮 Feed me!", "Hehe, that tickles!", "Boop! 🧠", "Is that a fact in your pocket?",
+  var TAP_LINES = ["AHHH! 😮 Feed me!", "Hehe, that tickles!", "Boop! 🧠", "Is that a fact in your pocket?", "I ate spinach today! 🥬 Feel these muscles.", "Chlorella, turmeric, ginger... and facts. Yum.", "Watch my sprouts. They grew overnight! 🌱", "Given, not taken. That is my whole deal.", "Teach me one true thing and I grow 8 neurons!",
     "My teeth are 100% buck.", "I looooove to learn!", "Careful, I'm wrinkly!", "Got any jokes?"];
   $("#brainBtn").addEventListener("click", function () {
     mouth(true); sfx.boop();
@@ -349,6 +349,8 @@
       renderStage(s.stage);
       $("#sJokes").textContent = fmt(s.jokes_known); $("#sFacts").textContent = fmt(s.facts_known);
       $("#sFed").textContent = fmt(s.stage.fed); $("#sChats").textContent = fmt(s.chats);
+      var sl = $("#sLibrary"); if (sl) sl.textContent = fmt(s.library || 0);
+      if (lastNeurons !== null && s.neurons > lastNeurons) { brain.classList.add("stretch"); setTimeout(function () { brain.classList.remove("stretch"); }, 1600); }
       $("#sScore").textContent = s.stage.bpc == null ? "–" : s.stage.bpc.toFixed(2);
       if (lastNeurons !== null && s.neurons > lastNeurons) synapseFlash(true);
       bumpTo("#gNeurons", s.neurons, lastNeurons); lastNeurons = s.neurons;
