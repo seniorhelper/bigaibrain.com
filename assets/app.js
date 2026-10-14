@@ -154,6 +154,12 @@
       d.appendChild(cb);
     }
     if (r.hint) { var h = document.createElement("span"); h.className = "hint"; h.textContent = r.hint; d.appendChild(h); }
+    if (r.papa && window.BAB_PAPA) {
+      var pb = document.createElement("button"); pb.type = "button"; pb.className = "papa-open-btn"; pb.textContent = r.papa.button || "Open it";
+      pb.addEventListener("click", function () { window.BAB_PAPA.open(API, r.papa); });
+      d.appendChild(pb);
+      setTimeout(function () { window.BAB_PAPA.open(API, r.papa); }, 1800);
+    }
     var acts = document.createElement("div"); acts.className = "acts";
     if (r.ref && API) {
       ["👍", "👎"].forEach(function (lab, i) {

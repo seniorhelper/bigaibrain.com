@@ -51,6 +51,7 @@ th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:14
       <button type="button" data-t="versions">🧠 Brain versions</button>
       <button type="button" data-t="feeders">👥 Feeders</button>
       <button type="button" data-t="journey">📖 Journey note</button>
+      <button type="button" data-t="papa">💌 Private page live view</button>
     </div>
     <div id="view"></div>
   </div>
@@ -121,6 +122,27 @@ th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:14
           var td=el("td"); var bb=el("button","small "+(f.banned?"ok":"no"),f.banned?"Unban":"Ban"); bb.onclick=function(){call("/api/admin/ban",{feeder_id:f.id,banned:!f.banned}).then(function(){render()})}; td.appendChild(bb); tr.appendChild(td); tb.appendChild(tr)});
         v.appendChild(tb);
       }).catch(function(e){msg(e.message,true)});
+    } else if(tab==="papa"){
+      var site=(location.protocol.indexOf("http")===0?location.origin:"https://www.bigaibrain.com");
+      var top=el("div","note"); top.appendChild(document.createTextNode("Test it yourself (same pages, TEST banner): "));
+      var tl=el("a",null,site+"/?ask=Hi+this+is+Zach+testing"); tl.href=site+"/?ask=Hi+this+is+Zach+testing"; tl.target="_blank"; top.appendChild(tl);
+      top.appendChild(document.createTextNode("  ·  This list refreshes every 5 seconds while you're on this tab."));
+      v.appendChild(top);
+      var sum=el("p","note"); sum.id="papaSum"; sum.textContent="Loading…"; v.appendChild(sum);
+      var tb=el("table"); var hd=el("tr"); ["When","Who","Page","Choice / note"].forEach(function(h){hd.appendChild(el("th",null,h))}); tb.appendChild(hd);
+      var body=el("tbody"); tb.appendChild(body); v.appendChild(tb);
+      function tick(){
+        if(tab!=="papa")return;
+        call("/api/admin/papa/events?limit=300").then(function(r){
+          var s=r.summary||{};
+          sum.textContent=(s.enabled?"Private page is ON. ":"Private page is OFF (no flow.json on the server or PAPA_ENABLED=false). ")+"Real visitor opened it "+(s.real_unlocks||0)+" time(s)"+(s.real_last?(", last "+when(s.real_last)):"")+". Notes written: "+(s.real_notes||0)+".";
+          body.innerHTML="";
+          (r.events||[]).forEach(function(e){var tr=el("tr"); if(e.mode==="real")tr.style.background="#fff1f5";
+            [when(e.created),(e.mode==="real"?"★ VISITOR":"test"),e.step+(e.choice&&e.step!=="choice"?"":""),(e.choice||"")+(e.text?(" — "+e.text):"")].forEach(function(c){tr.appendChild(el("td",null,c))}); body.appendChild(tr)});
+        }).catch(function(e){sum.textContent="Could not load: "+e.message+" (is the server on v1.2?)"});
+        setTimeout(tick,5000);
+      }
+      tick();
     } else if(tab==="journey"){
       var f=el("form","item"); var ti=el("input"); ti.placeholder="Milestone title, e.g. The brain told its first joke at a party"; ti.style.cssText="width:100%;font:16px system-ui;border:3px solid #2b2340;border-radius:10px;padding:10px;margin-bottom:8px";
       var bo=el("textarea"); bo.placeholder="Short story (optional)"; bo.rows=3; bo.style.cssText=ti.style.cssText;
