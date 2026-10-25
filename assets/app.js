@@ -229,7 +229,7 @@
     fact: { p: "What's it about? (optional)", pp: "Example: octopus hearts", a: "The fact", ap: "Example: An octopus has three hearts and blue blood.", need: false, max: 400, help: "A fact is one true thing about the world, in your own words." },
     joke: { p: "The joke setup", pp: "Example: Why did the cookie go to the doctor?", a: "The punchline", ap: "Example: It was feeling crummy.", need: true, max: 400, help: "Clean jokes only. Kids are listening." },
     qa: { p: "The question", pp: "Example: What is a rock?", a: "The right answer", ap: "Example: A rock is a hard, solid chunk of minerals.", need: true, max: 400, help: "A question people might ask, with the right answer." },
-    drop: { p: "Topic (one subject)", pp: "Example: How to fix a running toilet", a: "Your knowledge drop (up to 2,000 characters)", ap: "Teach the brain a whole topic you know well, in your own words. Step by step is great.", need: true, max: 2000, help: "A Knowledge Drop is a bigger meal: one topic, your own words, up to 2,000 characters. Limited to 5 a day. Always read by a human first." }
+    drop: { p: "Topic (one subject)", pp: "Example: How to fix a running toilet", a: "Your knowledge drop (up to 4,000 characters)", ap: "Teach the brain a whole topic you know well, in your own words. Step by step is great.", need: true, max: 4000, help: "A Knowledge Drop is a bigger meal: one topic, your own words, up to 4,000 characters (about 650 words). Limited to 10 a day. Always read by a human first." }
   };
   var kind = "fact";
   function setKind(k) {
