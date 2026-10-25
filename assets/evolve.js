@@ -83,6 +83,9 @@
     try { var b = shape.getBBox(); if (b.width) BB = { x: b.x, y: b.y, w: b.width, h: b.height }; } catch (e) {}
     btn.classList.add("evo-on");
     cv = document.createElement("canvas"); cv.className = "evo-cv"; cv.setAttribute("aria-hidden", "true");
+    // inline, so a stale cached style.css can never turn the canvas into a big block that pushes the page down
+    cv.style.cssText = "position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none";
+    if (getComputedStyle(btn).position === "static") btn.style.position = "relative";
     btn.appendChild(cv); ctx = cv.getContext("2d");
     tech = document.createElement("canvas"); tctx = tech.getContext("2d");
     mask = document.createElement("canvas"); mctx = mask.getContext("2d");
@@ -223,6 +226,9 @@
   function fieldSetup() {
     if (!hero) return;
     fcv = document.createElement("canvas"); fcv.className = "evo-field"; fcv.setAttribute("aria-hidden", "true");
+    fcv.style.cssText = "position:absolute;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none";
+    if (getComputedStyle(hero).position === "static") hero.style.position = "relative";
+    var hw = hero.querySelector(".wrap"); if (hw && getComputedStyle(hw).position === "static") { hw.style.position = "relative"; hw.style.zIndex = "1"; }
     hero.insertBefore(fcv, hero.firstChild); fctx = fcv.getContext("2d"); hero.classList.add("evo-hero");
     fieldResize(); window.addEventListener("resize", fieldResize);
     var lx = 0, ly = 0;

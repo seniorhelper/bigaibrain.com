@@ -124,7 +124,8 @@
   }
 
   /* ---------------- live scene ---------------- */
-  var cv = root.querySelector("canvas"), ctx = cv.getContext("2d"), W = 0, H = 0, dpr = 1;
+  var cv = root.querySelector("canvas"); cv.style.cssText = "position:absolute;left:0;top:0;width:100%;height:100%";
+  var ctx = cv.getContext("2d"), W = 0, H = 0, dpr = 1;
   var n = 0, SH = [], P, V, from = 0, to = 0, m = 1, cur = 0, started = false, raf = 0, vis = false;
   var ptr = { x: -999, y: -999, on: false, vx: 0, vy: 0, downX: 0, down: false };
   var btns = [].slice.call(document.querySelectorAll(".ch-step")), info = document.querySelector(".ch-info");
