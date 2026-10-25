@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Our Mission | Big AI Brain</title>
-<meta name="description" content="Big AI Brain is an AI the world raises on purpose: knowledge given, not taken. Read what we believe, the feeding ground rules, and where the consent-based knowledge base goes next.">
+<meta name="description" content="Big AI Brain is an AI the world raises on purpose: knowledge given, not taken. Read what we believe, the feeding ground rules, and where the consent-based knowledge base goes next. Plus our vision for a zero-carbon home that only grows when its clean energy grows first.">
 <link rel="canonical" href="https://www.bigaibrain.com/mission/">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#fff4e6">
@@ -78,6 +78,44 @@
 <div class="callout"><b>Headquartered in Denver, Colorado, raised everywhere.</b> Questions, press, partnerships, or an idea for pointing the brain at a real problem? <a class="eml" href="#" data-a="aW5mbw==" data-b="ZXlldG9hZC5jb20=">Email us</a>.</div>
 <p><a class="btn btn-pink" href="/#feed">🍽️ Feed the brain</a> <a class="btn btn-yellow" href="/evolution/">Watch it grow</a></p>
 </div></main>
+<section class="ch" id="clean-home" aria-labelledby="ch-h">
+  <div class="wrap">
+    <p class="eyebrow">Mission, part two · a vision, not built yet</p>
+    <h2 id="ch-h">A brain that grows clean, <span>or doesn't grow at all.</span></h2>
+    <p class="ch-lede">AI can use a lot of electricity and water. We want to prove it doesn't have to. Our rule is simple: the brain's home only gets bigger after its clean energy gets bigger first. Here is what that could look like, one phase at a time. Each phase is bigger than the last, and each one gives back more.</p>
+    <div class="ch-stepper" role="group" aria-label="Pick a phase">
+      <button class="ch-step on" type="button" aria-pressed="true"><b>1</b> Seedling</button>
+      <button class="ch-step" type="button" aria-pressed="false"><b>2</b> Grove</button>
+      <button class="ch-step" type="button" aria-pressed="false"><b>3</b> Village</button>
+      <button class="ch-step" type="button" aria-pressed="false"><b>4</b> Watershed</button>
+    </div>
+    <div class="ch-grid">
+      <div class="ch-stage" data-clean-home tabindex="0" aria-label="Clean home diorama. Use the arrow keys or swipe to change phases.">
+        <canvas aria-hidden="true"></canvas>
+        <p class="ch-hint">Swipe to grow it · tap a glowing ring</p>
+        <div class="ch-spot" hidden aria-live="polite"></div>
+      </div>
+      <div class="ch-side">
+        <div class="ch-info" aria-live="polite"></div>
+        <button class="btn btn-yellow ch-grow" type="button">🌱 Grow it to phase 2</button>
+      </div>
+    </div>
+
+    <h3 class="ch-h3">How to do it the right way</h3>
+    <div class="ch-rules">
+      <div><span>⏱️</span><b>Clean every hour, not just on paper</b><p>Buying a cheap "offset" at the end of the year isn't the same as running on clean power. The goal is clean power every hour of every day.</p></div>
+      <div><span>➕</span><b>New clean power, not someone else's</b><p>If we use clean energy, we help build new solar and wind, so we aren't taking it from neighbors who need it too.</p></div>
+      <div><span>💧</span><b>Give back more water than we use</b><p>Cool with air and the ground, catch rain, and restore streams. Never drain a town's drinking water.</p></div>
+      <div><span>🔥</span><b>Heat is a gift</b><p>Computers make heat. Use it for greenhouses, homes and schools instead of throwing it away.</p></div>
+      <div><span>🐜</span><b>Small and smart first</b><p>A smarter design beats a bigger pile of computers. Big AI Brain studies for minutes a night, not days.</p></div>
+      <div><span>🏚️</span><b>Build on used land</b><p>Old lots and rooftops first, never wild land. Then bring nature back around it.</p></div>
+      <div><span>🔧</span><b>Fix before you replace</b><p>Making new chips takes lots of energy. Repair and reuse parts, and recycle only at the very end.</p></div>
+      <div><span>🤝</span><b>Neighbors own a piece</b><p>The people who live nearby should share the savings, have a say, and get first dibs on the jobs.</p></div>
+      <div><span>📊</span><b>Honest numbers, always</b><p>Show the real power, water and heat numbers in public, good or bad. We will never make up a number.</p></div>
+    </div>
+    <p class="ch-note"><b>Where we really are:</b> phase 1. Today the brain runs on one small rented server and studies about 5 minutes a night. Everything past phase 1 is a dream we're working toward, shared out loud so you can hold us to it.</p>
+  </div>
+</section>
 <footer class="foot">
   <div class="wrap foot-in">
     <div>
@@ -96,5 +134,6 @@ document.querySelectorAll("a.eml").forEach(function(a){a.addEventListener("click
 document.querySelectorAll("[data-viz]").forEach(function(h){var r=setInterval(function(){if(window.BAB_VISUAL){clearInterval(r);var v=window.BAB_VISUAL(h.getAttribute("data-viz"));if(v)h.appendChild(v);}},50);});
 document.addEventListener("click",function(e){var b=e.target.closest("[data-say]");if(!b)return;try{sessionStorage.setItem("bab_say",b.getAttribute("data-say"));}catch(x){}location.href="/#chat";});
 </script>
+<script src="/assets/clean-home.js" defer></script>
 </body>
 </html>
