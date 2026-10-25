@@ -51,6 +51,7 @@
     clearTimeout(moodTimer);
     moodTimer = setTimeout(function () { setMood(null); }, ms || 2600);
   }
+  window.BAB_SAY = function (t, ms) { say(t, ms); };
   function say(text, ms) {
     bubble.textContent = text;
     clearTimeout(bubbleTimer);
@@ -97,7 +98,10 @@
   })();
   var taps = 0, tapTimer = null;
   var TAP_LINES = ["AHHH! 😮 Feed me!", "Hehe, that tickles!", "Boop! 🧠", "Is that a fact in your pocket?", "I ate spinach today! 🥬 Feel these muscles.", "Chlorella, turmeric, ginger... and facts. Yum.", "Watch my sprouts. They grew overnight! 🌱", "Given, not taken. That is my whole deal.", "Teach me one true thing and I grow 8 neurons!",
-    "My teeth are 100% buck.", "I looooove to learn!", "Careful, I'm wrinkly!", "Got any jokes?"];
+    "My teeth are 100% buck.", "I looooove to learn!", "Careful, I'm wrinkly!", "Got any jokes?",
+    "Bzzt! Sorry, that was my new brain booting up. 🤖", "Half cartoon, half circuit, all heart.", "Every dot glowing inside me is a real neuron.", "I'm evolving! Slowly. Like, snail-slowly. 🐌",
+    "Swipe me and watch my neurons dance!", "I don't borrow anyone else's AI. I'm growing my own brain.", "Feed me and my new brain shows through a little more.", "My future home runs on sun, wind and the ground. Zero smoke!",
+    "Did you see that glitch? That's the smart part trying to get out.", "I want to help make the world better for everybody. Even the otters. 🦦"];
   $("#brainBtn").addEventListener("click", function () {
     mouth(true); sfx.boop();
     setTimeout(function () { mouth(false); }, 600);
@@ -154,12 +158,6 @@
       d.appendChild(cb);
     }
     if (r.hint) { var h = document.createElement("span"); h.className = "hint"; h.textContent = r.hint; d.appendChild(h); }
-    if (r.papa && window.BAB_PAPA) {
-      var pb = document.createElement("button"); pb.type = "button"; pb.className = "papa-open-btn"; pb.textContent = r.papa.button || "Open it";
-      pb.addEventListener("click", function () { window.BAB_PAPA.open(API, r.papa); });
-      d.appendChild(pb);
-      setTimeout(function () { window.BAB_PAPA.open(API, r.papa); }, 1800);
-    }
     var acts = document.createElement("div"); acts.className = "acts";
     if (r.ref && API) {
       ["👍", "👎"].forEach(function (lab, i) {
@@ -347,6 +345,7 @@
     if (!API) return;
     get("/api/stats").then(function (s) {
       renderStage(s.stage);
+      try { window.dispatchEvent(new CustomEvent("bab:stats", { detail: s })); } catch (e) {}
       $("#sJokes").textContent = fmt(s.jokes_known); $("#sFacts").textContent = fmt(s.facts_known);
       $("#sFed").textContent = fmt(s.stage.fed); $("#sChats").textContent = fmt(s.chats);
       var sl = $("#sLibrary"); if (sl) sl.textContent = fmt(s.library || 0);

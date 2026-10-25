@@ -50,8 +50,8 @@ th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:14
       <button type="button" data-t="rejected">❌ Rejected</button>
       <button type="button" data-t="versions">🧠 Brain versions</button>
       <button type="button" data-t="feeders">👥 Feeders</button>
+      <button type="button" data-t="spoon">🥄 Big spoon</button>
       <button type="button" data-t="journey">📖 Journey note</button>
-      <button type="button" data-t="papa">💌 Private page live view</button>
     </div>
     <div id="view"></div>
   </div>
@@ -122,27 +122,43 @@ th,td{padding:8px 10px;border-bottom:1px solid #eee;text-align:left;font-size:14
           var td=el("td"); var bb=el("button","small "+(f.banned?"ok":"no"),f.banned?"Unban":"Ban"); bb.onclick=function(){call("/api/admin/ban",{feeder_id:f.id,banned:!f.banned}).then(function(){render()})}; td.appendChild(bb); tr.appendChild(td); tb.appendChild(tr)});
         v.appendChild(tb);
       }).catch(function(e){msg(e.message,true)});
-    } else if(tab==="papa"){
-      var site=(location.protocol.indexOf("http")===0?location.origin:"https://www.bigaibrain.com");
-      var top=el("div","note"); top.appendChild(document.createTextNode("Test it yourself (same pages, TEST banner): "));
-      var tl=el("a",null,site+"/?ask=Hi+this+is+Zach+testing"); tl.href=site+"/?ask=Hi+this+is+Zach+testing"; tl.target="_blank"; top.appendChild(tl);
-      top.appendChild(document.createTextNode("  ·  This list refreshes every 5 seconds while you're on this tab."));
-      v.appendChild(top);
-      var sum=el("p","note"); sum.id="papaSum"; sum.textContent="Loading…"; v.appendChild(sum);
-      var tb=el("table"); var hd=el("tr"); ["When","Who","Page","Choice / note"].forEach(function(h){hd.appendChild(el("th",null,h))}); tb.appendChild(hd);
-      var body=el("tbody"); tb.appendChild(body); v.appendChild(tb);
-      function tick(){
-        if(tab!=="papa")return;
-        call("/api/admin/papa/events?limit=300").then(function(r){
-          var s=r.summary||{};
-          sum.textContent=(s.enabled?"Private page is ON. ":"Private page is OFF (no flow.json on the server or PAPA_ENABLED=false). ")+"Real visitor opened it "+(s.real_unlocks||0)+" time(s)"+(s.real_last?(", last "+when(s.real_last)):"")+". Notes written: "+(s.real_notes||0)+".";
-          body.innerHTML="";
-          (r.events||[]).forEach(function(e){var tr=el("tr"); if(e.mode==="real")tr.style.background="#fff1f5";
-            [when(e.created),(e.mode==="real"?"★ VISITOR":"test"),e.step+(e.choice&&e.step!=="choice"?"":""),(e.choice||"")+(e.text?(" — "+e.text):"")].forEach(function(c){tr.appendChild(el("td",null,c))}); body.appendChild(tr)});
-        }).catch(function(e){sum.textContent="Could not load: "+e.message+" (is the server on v1.2?)"});
-        setTimeout(tick,5000);
-      }
-      tick();
+    } else if(tab==="spoon"){
+      // v1.4: the owner's big spoon. Paste text or load a .txt/.md file. The file is read as plain text right here
+      // in the browser (never uploaded as a file, never opened or run), then sent in parts of up to 9,000 characters.
+      var PART=9000;
+      var f=el("form","item");
+      f.appendChild(el("p","note","Paste anything you wrote or know, any length. Long text is split into parts of up to 9,000 characters, each one goes through the clean-words filter, gets approved right away and is studied tonight at 10pm."));
+      var ti=el("input"); ti.placeholder="Title, e.g. How a solar panel works"; ti.maxLength=100; ti.style.cssText="width:100%;margin:6px 0;font:16px system-ui;padding:10px;border:2px solid #2b2340;border-radius:10px";
+      var tx=el("textarea"); tx.placeholder="Paste the text here..."; tx.rows=14; tx.style.cssText=ti.style.cssText;
+      var row=el("div"); row.style.cssText="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0";
+      var fl=el("input"); fl.type="file"; fl.accept=".txt,.md,text/plain,text/markdown";
+      var mine=el("label"); var mc=el("input"); mc.type="checkbox"; mc.checked=true; mine.appendChild(mc); mine.appendChild(document.createTextNode(" I wrote this myself or know it firsthand"));
+      var nk=el("input"); nk.value="Daddy"; nk.maxLength=20; nk.placeholder="Feeder name"; nk.style.cssText="width:140px;padding:8px;border:2px solid #2b2340;border-radius:8px";
+      row.appendChild(fl); row.appendChild(mine); row.appendChild(nk);
+      var cnt=el("p","note","0 words · 0 characters");
+      var sb=el("button","btn btn-pink","🥄 Feed it all"); sb.type="submit";
+      var out=el("div");
+      f.appendChild(ti); f.appendChild(tx); f.appendChild(row); f.appendChild(cnt); f.appendChild(sb); f.appendChild(out);
+      v.appendChild(f);
+      function parts(t){var out=[],buf="";t.split(/\n\s*\n/).forEach(function(p){p=p.trim();if(!p)return;
+        while(p.length>PART){var cut=p.lastIndexOf(". ",PART);if(cut<PART*0.5)cut=PART;if(buf){out.push(buf);buf="";}out.push(p.slice(0,cut+1).trim());p=p.slice(cut+1).trim();}
+        if((buf+"\n\n"+p).length>PART){out.push(buf);buf=p;}else buf=buf?buf+"\n\n"+p:p;});if(buf)out.push(buf);return out}
+      function upd(){var t=tx.value,w=(t.match(/\S+/g)||[]).length,n=parts(t).length;cnt.textContent=w.toLocaleString()+" words · "+t.length.toLocaleString()+" characters · "+n+" part"+(n===1?"":"s")}
+      tx.addEventListener("input",upd);
+      fl.addEventListener("change",function(){var file=fl.files&&fl.files[0];if(!file)return;
+        if(!/\.(txt|md)$/i.test(file.name)){msg("Only .txt or .md files. For Word or PDF, copy the text and paste it.",true);fl.value="";return}
+        if(file.size>600000){msg("That file is over 600 KB. Split it up first.",true);fl.value="";return}
+        var r=new FileReader();r.onload=function(){tx.value=String(r.result||"").replace(/\u0000/g,"");if(!ti.value)ti.value=file.name.replace(/\.(txt|md)$/i,"").slice(0,100);upd();msg("Loaded "+file.name+" as plain text. Check it, then feed it.")};r.readAsText(file)});
+      f.onsubmit=function(e){e.preventDefault();var P=parts(tx.value),title=(ti.value||"Untitled").trim();
+        if(!P.length){msg("Nothing to feed yet.",true);return}
+        sb.disabled=true;out.innerHTML="";var i=0,ok=0,cards=0;
+        (function next(){if(i>=P.length){sb.disabled=false;msg("Done: "+ok+" of "+P.length+" part(s) eaten ("+cards+" study cards). It studies them tonight.",ok<P.length);return}
+          var label=P.length>1?title+" (part "+(i+1)+" of "+P.length+")":title;
+          call("/api/admin/feed",{kind:"drop",prompt:label.slice(0,120),answer:P[i],nickname:nk.value||"Daddy",source:mc.checked?"mine":"public"})
+            .then(function(r){var line=el("p","note",(r.ok?"✅ ":"⚠️ ")+label+": "+(r.message||""));out.appendChild(line);if(r.ok){ok++;cards+=r.cards||0}})
+            .catch(function(er){out.appendChild(el("p","note","❌ "+label+": "+er.message))})
+            .then(function(){i++;next()})})();
+      };
     } else if(tab==="journey"){
       var f=el("form","item"); var ti=el("input"); ti.placeholder="Milestone title, e.g. The brain told its first joke at a party"; ti.style.cssText="width:100%;font:16px system-ui;border:3px solid #2b2340;border-radius:10px;padding:10px;margin-bottom:8px";
       var bo=el("textarea"); bo.placeholder="Short story (optional)"; bo.rows=3; bo.style.cssText=ti.style.cssText;
